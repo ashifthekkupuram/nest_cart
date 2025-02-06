@@ -13,7 +13,7 @@ const Login = () => {
 
     const { setToken, setUser } = useContext(AuthContext)
 
-    const onSubmit = async () => {
+    const onSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
         setError(null)

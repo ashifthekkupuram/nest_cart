@@ -1,11 +1,8 @@
 import axios from 'axios'
-import { useContext } from 'react'
 
-// import { AuthContext } from '../context/AuthContext'
+import { PassAccessTokenProvider } from '../context/AuthContext'
 
 const baseURL = import.meta.env.VITE_API_URL
-
-// const { token } = useContext(AuthContext)
 
 const instance = axios.create({
     baseURL,
@@ -14,9 +11,9 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
     async (config) => {
-        // if(token){
-        //     config.headers.Authorization = `Bearer ${token}`
-        // }
+        if(PassAccessTokenProvider?.token){
+            config.headers.Authorization = `Bearer ${PassAccessTokenProvider.token}`
+        }
         return config
     },
     (error) => {

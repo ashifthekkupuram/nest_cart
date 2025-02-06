@@ -3,11 +3,16 @@ import { createContext, useState, useEffect } from "react";
 import api from '../api/api'
 
 export const AuthContext = createContext(null)
+export const PassAccessTokenProvider = {}
 
 const AuthProvider = ({ children }) => {
 
-    const [token, setToken] = useState(null)
+    const [token, setToken] = useState('')
     const [user, setUser] = useState({})
+
+    PassAccessTokenProvider.token = token
+    PassAccessTokenProvider.setToken = setToken
+    PassAccessTokenProvider.setUser = setUser
 
     const refresh = async () => {
         try{

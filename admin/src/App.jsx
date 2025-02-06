@@ -1,11 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
-import Login from "./pages/Login"
 import Dashboard from './pages/Dashboard'
-import AuthRedirect from "./components/AuthRequired"
-import AuthRequired from "./components/AuthRequired"
-
-import AuthProvider from "./context/AuthContext"
+import Login from './pages/Login'
+import AuthRequired from './components/AuthRequired'
+import AuthRedirect from './components/AuthRedirect'
 
 const App = () => {
 
@@ -19,18 +17,17 @@ const App = () => {
       }]
     },
     {
-      path: '/login',
+      path: '/',
       element: <AuthRedirect />,
       children: [{
-        path: '',
+        path: '/login',
         element: <Login />
       }]
-    }
+    },
   ])
 
-  return <AuthProvider>
-    <RouterProvider router={router} />
-  </AuthProvider>
+  return <RouterProvider router={router} />
+
 }
 
 export default App

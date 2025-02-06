@@ -1,10 +1,14 @@
 import React from 'react'
+import { Admin, Resource } from 'react-admin'
+
+import CustomLayout from '../components/CustomLayout'
 
 const Dashboard = () => {
+
   return (
-    <div>
-      Dashboard
-    </div>
+    <Admin layout={CustomLayout}>
+      <Resource name='details' />
+    </Admin>
   )
 }
 
