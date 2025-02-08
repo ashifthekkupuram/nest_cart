@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 
 import api from '../api/api'
-import { AuthContext } from '../context/AuthContext'
+import useAuth from '../zustand/useAuth'
 
 const Login = () => {
 
@@ -11,7 +11,7 @@ const Login = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
-    const { setToken, setUser } = useContext(AuthContext)
+    const { setAuth } = useAuth((state) => state.setAuth)
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -19,10 +19,10 @@ const Login = () => {
         setError(null)
         try {
             const response = await api.post('/auth/login', { email: email.trim(), password })
-            setToken(response.data.access_token)
-            setUser(response.data.UserData)
+            setAuth(response.data)
             setError(null)
         } catch (err) {
+            console.log(err)
             setError(err?.response?.data?.message || 'Internal Server Error')
         } finally {
             setLoading(false)

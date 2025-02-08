@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { PassAccessTokenProvider } from '../context/AuthContext'
+import useAuth from '../zustand/useAuth'
 
 const baseURL = import.meta.env.VITE_API_URL
 
@@ -11,8 +11,9 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
     async (config) => {
-        if(PassAccessTokenProvider?.token){
-            config.headers.Authorization = `Bearer ${PassAccessTokenProvider.token}`
+        const token = useAuth.getState().token
+        if(token){
+            config.headers.Authorization = `Bearer ${token}`
         }
         return config
     },

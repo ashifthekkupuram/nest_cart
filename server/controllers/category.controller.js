@@ -20,6 +20,42 @@ export const get_categories = async (req, res, next) => {
     }
 }
 
+export const get_category = async (req, res, next) => {
+    try{
+
+        const { categoryId } = req.params
+
+        if(!categoryId){
+            return res.status(400).json({
+                success: false,
+                message: 'Category ID required'
+            })
+        }
+
+        const category = await Category.findById(categoryId)
+
+        if(!category){
+            return res.status(400).json({
+                success: false,
+                message: 'Category not found'
+            })
+        }
+
+        return res.json({
+            success: true,
+            message: 'Category retrieved',
+            category
+        })
+
+    } catch(err) {
+        return res.status(400).json({
+            success: false,
+            message: 'Something went wrong',
+            error: err
+        })
+    }
+}
+
 export const create_category = async (req, res, next) => {
     try{
 
@@ -123,7 +159,7 @@ export const delete_category = async (req, res, next) => {
         return res.json({
             success: true,
             message: 'Category deleted',
-            categoryId,
+            category,
         })
 
     } catch(err) {
