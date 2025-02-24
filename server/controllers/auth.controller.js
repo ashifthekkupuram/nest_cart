@@ -49,7 +49,8 @@ export const login = async (req, res, next) => {
                     email: user.email,
                     phone: user.phone,
                     name: user.name,
-                    addresses: user.addresses
+                    addresses: user.addresses,
+                    admin: user.admin
                 }
             })
 
@@ -192,7 +193,8 @@ export const refresh = async (req, res, next) => {
                     email: user.email,
                     phone: user.phone,
                     name: user.name,
-                    addresses: user.addresses
+                    addresses: user.addresses,
+                    admin: user.admin
                 }
             })
         })

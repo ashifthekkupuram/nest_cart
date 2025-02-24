@@ -19,10 +19,13 @@ const Login = () => {
         setError(null)
         try {
             const response = await api.post('/auth/login', { email: email.trim(), password })
-            setAuth(response.data)
-            setError(null)
+            if(response.data.UserData.admin){
+                setAuth(response.data)
+                setError(null)
+            }else{
+                setError('User is not an admin')
+            }
         } catch (err) {
-            console.log(err)
             setError(err?.response?.data?.message || 'Internal Server Error')
         } finally {
             setLoading(false)

@@ -5,7 +5,6 @@ const dataProvider = {
         try {
             const response = await api.get(`/${resource}`)
             const data = response.data.data.map((item) => ({ id: item._id, ...item }))
-            console.log(data)
             return { data: data, total: data.length }
         } catch (err) {
             throw new Error(err?.response?.data?.message || 'Internal Server Error')
@@ -15,7 +14,6 @@ const dataProvider = {
         try {
             const response = await api.get(`/${resource}/${id}`)
             const data = response.data.data
-            console.log(data)
             return { data: {id: data._id, ...data} }
         } catch (err) {
             console.error(err)
