@@ -14,13 +14,8 @@ const isAdmin = async (req, res, next) => {
             })
         }
 
-    }catch(err){
-        console.log(err)
-        return res.status(400).json({
-            success: false,
-            message: 'Something went wrongg',
-            error: err
-        })
+    }catch(error){
+        next(error)
     }
 }
 

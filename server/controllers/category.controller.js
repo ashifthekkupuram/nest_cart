@@ -8,15 +8,11 @@ export const get_categories = async (req, res, next) => {
         return res.json({
             success: true,
             message: 'Categories retrieved',
-            categories
+            data: categories
         })
 
-    } catch(err) {
-        return res.status(400).json({
-            success: false,
-            message: 'Something went wrong',
-            error: err
-        })
+    } catch(error) {
+        next(error)
     }
 }
 
@@ -44,15 +40,11 @@ export const get_category = async (req, res, next) => {
         return res.json({
             success: true,
             message: 'Category retrieved',
-            category
+            data: category
         })
 
-    } catch(err) {
-        return res.status(400).json({
-            success: false,
-            message: 'Something went wrong',
-            error: err
-        })
+    } catch(error) {
+        next(error)
     }
 }
 
@@ -75,15 +67,11 @@ export const create_category = async (req, res, next) => {
         return res.json({
             success: true,
             message: 'Category created',
-            category,
+            data: category
         })
 
-    } catch(err) {
-        return res.status(400).json({
-            success: false,
-            message: 'Something went wrong',
-            error: err
-        })
+    } catch(error) {
+        next(error)
     }
 }
 
@@ -121,15 +109,11 @@ export const update_category = async (req, res, next) => {
         return res.json({
             success: true,
             message: 'Category updated',
-            category: updatedCategory,
+            data: updatedCategory,
         })
 
-    } catch(err) {
-        return res.status(400).json({
-            success: false,
-            message: 'Something went wrong',
-            error: err
-        })
+    } catch(error) {
+        next(error)
     }
 }
 
@@ -159,14 +143,10 @@ export const delete_category = async (req, res, next) => {
         return res.json({
             success: true,
             message: 'Category deleted',
-            category,
+            data: category,
         })
 
-    } catch(err) {
-        return res.status(400).json({
-            success: false,
-            message: 'Something went wrong',
-            error: err
-        })
+    } catch(error) {
+        next(error)
     }
 }

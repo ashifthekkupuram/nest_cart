@@ -1,8 +1,8 @@
 import express from 'express'
 
 import { get_categories, get_category, create_category, update_category, delete_category } from '../controllers/category.controller.js'
-import isAuthenticated from '../middlewares/isAuthenticated.js'
-import isAdmin from '../middlewares/isAdmin.js'
+import isAuthenticated from '../middlewares/auth.middleware.js'
+import isAdmin from '../middlewares/admin.middleware.js'
 
 const Router = express.Router()
 

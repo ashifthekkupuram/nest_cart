@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { arrayBuffer } from 'stream/consumers'
 
 const Schema = mongoose.Schema
 
@@ -23,8 +24,14 @@ const ProductSchema = new Schema({
     images: [{
         type: String,
         required: true,
-        minLength: 1,
-        maxLength: 10
+        validate: [
+            function(value){ return value.length <! 1 || value.length >! 10 }, 'Maximum of 10 images can be uploaded'
+        ]
+    }],
+    categories: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Category',
+        required: true
     }]
 },{ timestamps: true })
 

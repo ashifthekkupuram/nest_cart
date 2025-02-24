@@ -11,7 +11,7 @@ const Login = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
-    const { setAuth } = useAuth((state) => state.setAuth)
+    const setAuth = useAuth((state) => state.setAuth)
 
     const onSubmit = async (e) => {
         e.preventDefault()

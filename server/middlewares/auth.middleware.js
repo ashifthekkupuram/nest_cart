@@ -24,20 +24,16 @@ const isAuthencated = async (req, res, next) => {
             })
         }
 
-        jwt.verify(token, ACCESS_SECRET_KEY, async (err, decoded) => {
-            if (err) {
-                if (err.name === 'TokenExpiredError') {
+        jwt.verify(token, ACCESS_SECRET_KEY, async (error, decoded) => {
+            if (error) {
+                if (error.name === 'TokenExpiredError') {
                     return res.status(403).json({
                         success: false,
                         message: 'Token is expired'
                     })
                 }
 
-                return res.status(400).json({
-                    success: false,
-                    message: 'Something went wrong',
-                    error: err
-                })
+                next(error)
             }
 
             if (decoded) {
@@ -62,12 +58,8 @@ const isAuthencated = async (req, res, next) => {
 
         })
 
-    } catch (err) {
-        return res.status(400).json({
-            success: false,
-            message: 'Something went wrong',
-            error: err
-        })
+    } catch (error) {
+        next(error)
     }
 }
 

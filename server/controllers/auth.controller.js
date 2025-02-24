@@ -60,12 +60,8 @@ export const login = async (req, res, next) => {
             })
         }
 
-    } catch (err) {
-        return res.status(400).json({
-            success: false,
-            message: 'Something went wrongg',
-            error: err
-        })
+    } catch (error) {
+        next(error)
     }
 }
 
@@ -128,13 +124,9 @@ export const register = async (req, res, next) => {
             })
         }
 
-        bcrypt.hash(password, 12, async (err, hashedPassword) => {
-            if (err) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Something went wrong',
-                    error: err
-                })
+        bcrypt.hash(password, 12, async (error, hashedPassword) => {
+            if (error) {
+                next(error)
             } else {
 
                 const user = new User({
@@ -157,12 +149,8 @@ export const register = async (req, res, next) => {
             }
         })
 
-    } catch (err) {
-        return res.status(400).json({
-            success: false,
-            message: 'Something went wrongg',
-            error: err
-        })
+    } catch (error) {
+        next(error)
     }
 }
 
@@ -180,12 +168,9 @@ export const refresh = async (req, res, next) => {
 
         const refresh_token = cookies.jwt
 
-        jwt.verify(refresh_token, REFRESH_SECRET_KEY, async (err, decoded) => {
-            if (err) {
-                return res.status(403).json({
-                    success: false,
-                    message: 'Session Expired',
-                })
+        jwt.verify(refresh_token, REFRESH_SECRET_KEY, async (error, decoded) => {
+            if (error) {
+                next(error)
             }
 
             const user = await User.findById(decoded._id)
@@ -212,12 +197,8 @@ export const refresh = async (req, res, next) => {
             })
         })
 
-    } catch (err) {
-        return res.status(400).json({
-            success: false,
-            message: 'Something went wrong',
-            error: err
-        })
+    } catch (error) {
+        next(error)
     }
 }
 
@@ -230,11 +211,7 @@ export const logout = async (req, res, next) => {
         res.clearCookie('jwt', { httpOnly: true, secure: true, sameSite: 'None' })
 
         res.json({ success: true, message: 'Logged out' })
-    } catch (err) {
-        return res.status(400).json({
-            success: false,
-            message: 'Something went wrong',
-            error: err
-        })
+    } catch (error) {
+        next(error)
     }
 }
