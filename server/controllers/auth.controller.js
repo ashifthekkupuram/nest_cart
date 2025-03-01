@@ -12,7 +12,6 @@ const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm
 
 export const login = async (req, res, next) => {
     try {
-
         const { email, password } = req.body
 
         if (!email || !password) {
@@ -44,13 +43,15 @@ export const login = async (req, res, next) => {
             return res.json({
                 success: true,
                 message: 'You have been logged in',
-                access_token,
-                UserData: {
-                    email: user.email,
-                    phone: user.phone,
-                    name: user.name,
-                    addresses: user.addresses,
-                    admin: user.admin
+                data: {
+                    access_token,
+                    UserData: {
+                        email: user.email,
+                        phone: user.phone,
+                        name: user.name,
+                        addresses: user.addresses,
+                        admin: user.admin
+                    }
                 }
             })
 
@@ -176,7 +177,7 @@ export const refresh = async (req, res, next) => {
 
             const user = await User.findById(decoded._id)
 
-            if(!user){
+            if (!user) {
                 return res.status(401).json({
                     success: false,
                     message: 'Unauthorized'
@@ -188,13 +189,15 @@ export const refresh = async (req, res, next) => {
             return res.json({
                 success: true,
                 message: 'You have been logged in',
-                access_token,
-                UserData: {
-                    email: user.email,
-                    phone: user.phone,
-                    name: user.name,
-                    addresses: user.addresses,
-                    admin: user.admin
+                data: {
+                    access_token,
+                    UserData: {
+                        email: user.email,
+                        phone: user.phone,
+                        name: user.name,
+                        addresses: user.addresses,
+                        admin: user.admin
+                    }
                 }
             })
         })
@@ -212,7 +215,7 @@ export const logout = async (req, res, next) => {
 
         res.clearCookie('jwt', { httpOnly: true, secure: true, sameSite: 'None' })
 
-        res.json({ success: true, message: 'Logged out' })
+        return res.json({ success: true, message: 'Logged out' })
     } catch (error) {
         next(error)
     }
