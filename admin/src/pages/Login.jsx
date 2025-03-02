@@ -19,8 +19,8 @@ const Login = () => {
         setError(null)
         try {
             const response = await api.post('/auth/login', { email: email.trim(), password })
-            if(response.data.UserData.admin){
-                setAuth(response.data)
+            if(response.data.data.UserData.admin){
+                setAuth(response.data.data)
                 setError(null)
             }else{
                 setError('User is not an admin')

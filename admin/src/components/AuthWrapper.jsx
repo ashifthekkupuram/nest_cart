@@ -16,7 +16,7 @@ const AuthWrapper = () => {
         setLoading(true)
         try {
             const response = await api.post('/auth/refresh')
-            setAuth(response.data)
+            setAuth(response.data.data)
         } catch (err) {
 
         } finally {

@@ -1,5 +1,6 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { Home, Login, Register } from './pages'
 import NavWrapper from './components/NavWrapper'
@@ -32,8 +33,12 @@ const App = () => {
     ]
   }])
 
+  const queryClient = new QueryClient()
+
   return (
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   )
 }
 

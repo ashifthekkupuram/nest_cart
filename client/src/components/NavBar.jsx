@@ -15,7 +15,7 @@ const NavBar = () => {
   const { loading, logout } = useLogout()
 
   return (
-    <div className='flex justify-between items-center sticky bg-[#FFB200] w-full h-12 px-2 md:px-12'>
+    <div className='flex justify-between items-center fixed top-0 bg-[#FFB200] w-full h-12 px-1 md:px-12'>
       {/* Left Section */}
       <div className='flex items-center gap-1 text-xl font-semibold'>
         {/* Title */}
