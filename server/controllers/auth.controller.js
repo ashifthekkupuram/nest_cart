@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs'
 import 'dotenv/config.js'
 
 import User from '../models/user.model.js'
+import Cart from '../models/cart.model.js'
 
 const ACCESS_SECRET_KEY = process.env.ACCESS_SECRET_KEY
 const REFRESH_SECRET_KEY = process.env.REFRESH_SECRET_KEY
@@ -38,6 +39,12 @@ export const login = async (req, res, next) => {
             const refresh_token = jwt.sign({ _id: user._id }, REFRESH_SECRET_KEY, { expiresIn: '1d' })
             const access_token = jwt.sign({ _id: user._id }, ACCESS_SECRET_KEY, { expiresIn: '5m' })
 
+            let cart = await Cart.findOne({ customer: user._id }).populate('order_items.product', 'name images')
+
+            if(!cart){
+                cart = await Cart.create({ customer: user._id, order_items: [] })
+            }
+
             res.cookie('jwt', refresh_token)
 
             return res.json({
@@ -51,7 +58,8 @@ export const login = async (req, res, next) => {
                         name: user.name,
                         addresses: user.addresses,
                         admin: user.admin
-                    }
+                    },
+                    cart,
                 }
             })
 
@@ -184,6 +192,12 @@ export const refresh = async (req, res, next) => {
                 })
             }
 
+            let cart = await Cart.findOne({ customer: user._id }).populate('order_items.product', 'name images')
+
+            if(!cart){
+                cart = await Cart.create({ customer: user._id, order_items: [] })
+            }
+
             const access_token = jwt.sign({ _id: user._id }, ACCESS_SECRET_KEY, { expiresIn: '5m' })
 
             return res.json({
@@ -197,7 +211,8 @@ export const refresh = async (req, res, next) => {
                         name: user.name,
                         addresses: user.addresses,
                         admin: user.admin
-                    }
+                    },
+                    cart
                 }
             })
         })

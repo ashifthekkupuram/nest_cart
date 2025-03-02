@@ -7,6 +7,7 @@ import ConnectDatabase from './config/database.js'
 import AuthRouter from './routes/auth.router.js'
 import CategoryRouter from './routes/category.router.js'
 import ProductRouter from './routes/product.router.js'
+import CartRouter from './routes/cart.router.js'
 
 import errorHandler from './middlewares/error.middleware.js'
 
@@ -24,6 +25,7 @@ app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
 app.use('/api/auth', AuthRouter)
 app.use('/api/category', CategoryRouter)
 app.use('/api/product', ProductRouter)
+app.use('/api/cart', CartRouter)
 
 // Error Handler
 app.use(errorHandler)

@@ -6,10 +6,12 @@ import { RxAvatar } from "react-icons/rx"
 import { CiLogout } from "react-icons/ci";
 import useAuth from '../zustand/useAuth'
 import useLogout from '../hooks/useLogout'
+import useCart from '../zustand/useCart'
 
 const NavBar = () => {
 
   const token = useAuth((state) => state.token)
+  const cart = useCart((state) => state.cart)
   const navigate = useNavigate()
 
   const { loading, logout } = useLogout()
@@ -17,7 +19,7 @@ const NavBar = () => {
   return (
     <div className='flex justify-between items-center fixed top-0 bg-[#FFB200] w-full h-12 px-1 md:px-12'>
       {/* Left Section */}
-      <div className='flex items-center gap-1 text-xl font-semibold'>
+      <div className='flex items-center gap-1 text-xl font-semibold cursor-pointer' onClick={() => navigate('/')}>
         {/* Title */}
         <MdShoppingBasket className='text-3xl' />
         Nest Cart
@@ -26,8 +28,8 @@ const NavBar = () => {
       <div className='flex items-center gap-4'>
         {/* Cart  and Total Items */}
         {token && <div className='relative hover:bg-[#EB5B00] rounded-2xl'>
-          <FaShoppingCart className="text-3xl" />
-          <div className='absolute bottom-0 right-0 flex justify-center items-center rounded-full bg-[#EB5B00] text-xs px-1'>0</div>
+          <FaShoppingCart className="text-3xl" onClick={() => navigate('/cart')} />
+          <div className='absolute bottom-0 right-0 flex justify-center items-center rounded-full bg-[#EB5B00] text-xs px-1'>{cart.length}</div>
         </div>}
         {/* Authentication and Profile */}
         {token ?
