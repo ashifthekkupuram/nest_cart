@@ -33,13 +33,15 @@ const Cart = () => {
           </tr>
         </thead>
         <tbody>
-          { cart && cart.map((item) => <tr>
+          { cart.length > 0 ? cart.map((item) => <tr>
             <td className='p-4 border-b border-[#EB5B00]'> <p>{ item.product.name }</p> </td>
             <td className='p-4 border-b border-[#EB5B00]'> <img className='w-8 md:w-12' src={`${item.product.images[0]}`} /> </td>
             <td className='p-4 border-b border-[#EB5B00]'> <p>₹{ item.price }</p> </td>
             <td className='p-4 border-b border-[#EB5B00]'> <p className='flex items-center gap-1 md:gap-2'> <button disabled={disabled} className='btn p-1' onClick={() => removeFromCart(item.product._id)}>-</button> { item.quantity } <button disabled={disabled} className='btn p-1' onClick={() => addToCart(item.product._id)}>+</button> </p> </td>
             <td className='p-4 border-b border-[#EB5B00]'> <p>₹{ item.amount }</p> </td>
-          </tr>) }
+          </tr>) : <tr>
+            <td colSpan={5} className='p-4 border-b border-[#EB5B00]'> No Items Added </td>
+          </tr> }
         </tbody>
         <tfoot className='w-full bg-[#FFB200]'>
           <tr>
