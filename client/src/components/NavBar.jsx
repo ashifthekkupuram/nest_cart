@@ -34,7 +34,7 @@ const NavBar = () => {
         {/* Authentication and Profile */}
         {token ?
           <div className='flex justify-between items-center gap-1'>
-            <RxAvatar className='text-3xl hover:bg-[#EB5B00] rounded-full transition-all' />
+            <RxAvatar className='text-3xl hover:bg-[#EB5B00] rounded-full transition-all' onClick={() => navigate('/profile')} />
             <button className='btn text-2xl' onClick={() => logout()}><CiLogout /></button>
           </div> :
           <div className='flex justify-between items-center gap-1'>

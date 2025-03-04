@@ -22,7 +22,7 @@ export const login = async (req, res, next) => {
             })
         }
 
-        const user = await User.findOne({ 'email.email': email.toLowerCase() })
+        const user = await User.findOne({ 'email.email': email.toLowerCase() }).populate('addresses')
 
         if (!user) {
             return res.status(400).json({
@@ -183,7 +183,7 @@ export const refresh = async (req, res, next) => {
                 next(error)
             }
 
-            const user = await User.findById(decoded._id)
+            const user = await User.findById(decoded._id).populate('addresses')
 
             if (!user) {
                 return res.status(401).json({
