@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import useCart from '../zustand/useCart'
 import useAddToCart from '../hooks/useAddToCart'
@@ -11,6 +12,8 @@ const Cart = () => {
   const { loading: removeFromCartLoading, removeFromCart } = useRemoveFromCart()
 
   const cart = useCart((state) => state.cart)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     let amount = 0
@@ -47,6 +50,7 @@ const Cart = () => {
           <tr>
             <th colSpan={5} className='text-right px-8 py-2'>
               Total Amount: ₹{ totalAmount }
+              <button className='ml-2 px-2 py-1 bg-amber-200 rounded-2xl transition-all hover:bg-amber-300' onClick={() => navigate('/checkout')}>Checkout</button>
             </th>
           </tr>
         </tfoot>

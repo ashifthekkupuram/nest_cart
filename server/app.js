@@ -9,6 +9,7 @@ import CategoryRouter from './routes/category.router.js'
 import ProductRouter from './routes/product.router.js'
 import CartRouter from './routes/cart.router.js'
 import AddressRouter from './routes/address.router.js'
+import OrderRouter from './routes/order.router.js'
 
 import errorHandler from './middlewares/error.middleware.js'
 
@@ -28,6 +29,7 @@ app.use('/api/category', CategoryRouter)
 app.use('/api/product', ProductRouter)
 app.use('/api/cart', CartRouter)
 app.use('/api/address', AddressRouter)
+app.use('/api/order', OrderRouter)
 
 // Error Handler
 app.use(errorHandler)
