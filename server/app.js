@@ -11,6 +11,7 @@ import CartRouter from './routes/cart.router.js'
 import AddressRouter from './routes/address.router.js'
 import OrderRouter from './routes/order.router.js'
 import UserRouter from './routes/user.router.js'
+import ReviewRouter from './routes/review.router.js'
 
 import errorHandler from './middlewares/error.middleware.js'
 
@@ -32,6 +33,7 @@ app.use('/api/cart', CartRouter)
 app.use('/api/address', AddressRouter)
 app.use('/api/order', OrderRouter)
 app.use('/api/user', UserRouter)
+app.use('/api/review', ReviewRouter)
 
 // Error Handler
 app.use(errorHandler)
