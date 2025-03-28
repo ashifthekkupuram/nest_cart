@@ -2,7 +2,7 @@ import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-import { Cart, Home, Login, Register, Profile, CreateAddress, UpdateAddress, Checkout, ChangeName, ChangePassword } from './pages'
+import { Cart, Home, Login, Register, Profile, CreateAddress, UpdateAddress, Checkout, ChangeName, ChangePassword, ProductDetail } from './pages'
 import NavWrapper from './components/NavWrapper'
 import AuthRedirect from './components/AuthRedirect'
 import AuthRequired from './components/AuthRequired'
@@ -16,6 +16,10 @@ const App = () => {
       {
         path: '/',
         element: <Home />
+      },
+      {
+        'path': '/product/:productId',
+        element: <ProductDetail />
       },
       {
         path: '/',
