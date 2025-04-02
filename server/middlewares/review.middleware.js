@@ -4,16 +4,16 @@ import Review from '../models/review.model.js'
 const isReviewer = async (req, res, next) => {
     try {
 
-        const { reviewId } = req.params
+        const { productId } = req.params
 
-        if (!reviewId) {
+        if (!productId) {
             return res.status(400).json({
                 success: false,
-                message: 'Review ID required'
+                message: 'Product ID required'
             })
         }
 
-        const review = await Review.findById(reviewId)
+        const review = await Review.findOne({ product: productId, author: req.user })
 
         if(!review){
             return res.status(404).json({
@@ -25,11 +25,11 @@ const isReviewer = async (req, res, next) => {
         const user = await User.findById(req.user)
 
         if (user.admin) {
-            next()
+            return next()
         }
 
-        if(review.author.toString() === req.user.toString()){
-            next()
+        if(review.author.toString() === req.user){
+            return next()
         }else{
             return res.status(401).json({
                 success: false,

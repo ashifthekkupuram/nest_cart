@@ -3,17 +3,18 @@ import toast from 'react-hot-toast'
 
 import api from '../api/axios'
 
-const useWriteReview = () => {
+const useDeleteReview = () => {
 
     const [loading, setLoading] = useState(false)
 
-    const writeReview = async (productId, title, content, stars) => {
+    const deleteReview = async (productId) => {
         setLoading(true)
         try {
-            const response = await api.post(`/review/${productId}`, { title: title.trim(), content, stars })
-            toast.success('Thanks for Submitting your review')
-            return response.data.data
+            await api.delete(`/review/${productId}`)
+            toast.success('Review has been deleted')
+            return 1
         } catch (error) {
+            console.log(error)
             toast.error(error?.response?.data?.message || 'Internal Server Error')
         } finally {
             setLoading(false)
@@ -21,7 +22,7 @@ const useWriteReview = () => {
         return null
     }
 
-    return { loading, writeReview }
+    return { loading, deleteReview }
 }
 
-export default useWriteReview
+export default useDeleteReview
