@@ -11,6 +11,7 @@ import useAddToCart from '../hooks/useAddToCart'
 import useWriteReview from '../hooks/useWriteReview'
 import useUpdateReview from '../hooks/useUpdateReview'
 import useDeleteReview from '../hooks/useDeleteReview'
+import Review from '../components/Review'
 
 const ProductDetail = () => {
 
@@ -24,6 +25,14 @@ const ProductDetail = () => {
         queryKey: ['product', productId],
         queryFn: async () => {
             const response = await api.get(`product/${productId}`)
+            return response.data.data
+        }
+    })
+
+    const { data: reviews } = useQuery({
+        queryKey: ['reviews', productId],
+        queryFn: async () => {
+            const response = await api.get(`review/${productId}`)
             return response.data.data
         }
     })
@@ -83,7 +92,7 @@ const ProductDetail = () => {
             {/* Product Detail Section */}
             <section className='flex flex-col justify-center w-full items-start md:items-center gap-1 md:flex-row'>
                 {/* Image Section */}
-                <Carousel className='md:w-[40%] z-10' >
+                <Carousel className='md:w-[40%] z-1' >
                     {data?.images.map((image, index) =>
                         <div key={index}>
                             <img src={image} />
@@ -98,8 +107,9 @@ const ProductDetail = () => {
                     {token && <button disabled={loading} onClick={() => addToCart(productId)} className='btn self-start'>Add to Cart</button>}
                 </div>
             </section>
-            {/* Review View and Write section */}
-            <section className='flex flex-col w-full'>
+            { token && <hr className='h-px my-3 border-0 bg-gray-200' />}
+            {/* View your Review and Write section */}
+            { token && <section className='flex flex-col w-full'>
                 <div className='mb-1'>
                     <label htmlFor="title">Title: </label>
                     <input value={title} name="title" id="title" placeholder='Awesome Product' onChange={(e) => setTitle(e.target.value)}></input>
@@ -125,7 +135,9 @@ const ProductDetail = () => {
                 </div>
                 <button onClick={() => updateMode ? onUpdateReview(productId, title, description, stars) : onWriteReview(productId, title, description, stars)} disabled={!title || !description || !stars || creatingReviewLoading || updatingReviewLoading || deletingReviewLoading} className='btn mb-1'>{updateMode ? 'Update' : 'Write'}</button>
                 {updateMode  && <button onClick={() => onDeleteReview(productId)} disabled={deletingReviewLoading} className='btn !bg-red-500 hover:!bg-red-600'>Delete</button>}
-            </section>
+            </section>}
+            <hr className='h-px my-3 border-0 bg-gray-200' />
+            { reviews && <div className='flex flex-col w-full'>{reviews.map((review) => <Review key={review._id} review={review} />)}</div> }
         </div>
     )
 }

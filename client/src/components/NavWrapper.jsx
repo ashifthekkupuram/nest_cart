@@ -14,7 +14,7 @@ const NavWrapper = () => {
   },[])
 
   return (
-    <div className='h-screen w-full pt-12'>
+    <div className='h-screen w-full pt-12 z-10'>
       <NavBar />
       <Outlet />
       <Toaster position='top-right' reverseOrder={false} />

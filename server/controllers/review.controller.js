@@ -73,7 +73,7 @@ export const createReview = async (req, res, next) => {
         if (!title || title.length < 20) {
             return res.status(400).json({
                 success: false,
-                message: 'Title is required'
+                message: 'Title is required and must be at least 20 characters long'
             })
         }
 
@@ -105,7 +105,7 @@ export const updateReview = async (req, res, next) => {
         if (!title || title.length < 20) {
             return res.status(400).json({
                 success: false,
-                message: 'Title is required'
+                message: 'Title is required and must be at least 20 characters long'
             })
         }
 
