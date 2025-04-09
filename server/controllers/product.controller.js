@@ -6,14 +6,29 @@ import cloudinary from '../config/cloudinary.js'
 export const get_products = async (req, res, next) => {
     try {
 
+        const { search , page = 1, limit = 12 } = req.query
+
         const FilterData = {}
 
-        const products = await Product.find(FilterData).populate('categories', 'name')
+        const pageNumber = parseInt(page, 10)
+        const pageSize = parseInt(limit, 10)
+
+        if(search){
+            FilterData.name = { $regex: search, $options: 'i' }
+            FilterData.discription = { $regex: search, $options: 'i' }
+        }
+
+        const products = await Product.find(FilterData).populate('categories', 'name').skip((pageNumber - 1) * pageSize).limit(pageSize)
+
+        const totalProducts = await Product.countDocuments(FilterData)
 
         return res.json({
             success: true,
             message: 'Products retrieved',
-            data: products,
+            data: {
+                data: products,
+                hasNextPage: pageNumber * pageSize < totalProducts
+            }
         })
 
     } catch (error) {

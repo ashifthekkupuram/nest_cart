@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 import { Carousel } from 'react-responsive-carousel'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 import Ratings from 'react-ratings-declarative';
+import { useInView } from 'react-intersection-observer'
+import MoonLoader from "react-spinners/MoonLoader"
 
 import api from '../api/axios'
 import useAuth from '../zustand/useAuth'
@@ -20,6 +22,8 @@ const ProductDetail = () => {
     const [stars, setStars] = useState(0)
     const [updateMode, setUpdateMode] = useState(false)
 
+    const { ref , inView } = useInView()
+
     const { productId } = useParams()
     const { data } = useQuery({
         queryKey: ['product', productId],
@@ -29,11 +33,14 @@ const ProductDetail = () => {
         }
     })
 
-    const { data: reviews } = useQuery({
+    const { data: reviews, status, error, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
         queryKey: ['reviews', productId],
-        queryFn: async () => {
-            const response = await api.get(`review/${productId}`)
+        queryFn: async ({ pageParam = 1 }) => {
+            const response = await api.get(`review/${productId}`, { params: { page: pageParam } })
             return response.data.data
+        },
+        getNextPageParam: (lastPage, pages) => {
+            lastPage.hasNextPage ? pages.length + 1 : undefined
         }
     })
 
@@ -87,6 +94,10 @@ const ProductDetail = () => {
         }
     }, [review])
 
+    useEffect(() => {
+        if(inView) fetchNextPage()
+    },[fetchNextPage, inView])
+
     return (
         <div className='flex flex-col px-1 py-2 md:px-10'>
             {/* Product Detail Section */}
@@ -137,7 +148,12 @@ const ProductDetail = () => {
                 {updateMode  && <button onClick={() => onDeleteReview(productId)} disabled={deletingReviewLoading} className='btn !bg-red-500 hover:!bg-red-600'>Delete</button>}
             </section>}
             <hr className='h-px my-3 border-0 bg-gray-200' />
-            { reviews && <div className='flex flex-col w-full'>{reviews.map((review) => <Review key={review._id} review={review} />)}</div> }
+            <div className='flex flex-col w-full'>{ status === 'pending' ? <MoonLoader /> : status === 'error' ? <div>{error.response.data.message || 'Internal Server Error'}</div> : reviews.pages.map((page, index) => {
+                return <React.Fragment key={index}>
+                    { page.data.map((review) => <Review key={review._id} review={review} />) }
+                </React.Fragment>
+            }) }</div>
+            <div ref={ref}></div>
         </div>
     )
 }

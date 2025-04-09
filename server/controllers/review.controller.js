@@ -5,6 +5,11 @@ export const getReviews = async (req, res, next) => {
 
         const { productId } = req.params
 
+        const { page = 1, limit = 6 } = req.query
+
+        const pageNumber = parseInt(page, 10)
+        const pageSize = parseInt(limit, 10)
+
         if (!productId) {
             return res.status(400).json({
                 success: false,
@@ -12,12 +17,17 @@ export const getReviews = async (req, res, next) => {
             })
         }
 
-        const reviews = await Review.find({ product: productId }).populate('author', 'name')
+        const reviews = await Review.find({ product: productId }).populate('author', 'name').skip((pageNumber - 1) * pageSize).limit(pageSize)
+
+        const totalReviews = await Review.countDocuments({ product: productId })
 
         return res.json({
             success: true,
             message: 'GET Reviews',
-            data: reviews
+            data: {
+                data: reviews,
+                hasNextPage: pageNumber * pageSize < totalReviews
+            }
         })
 
     } catch (error) {
