@@ -20,8 +20,6 @@ export const get_products = async (req, res, next) => {
 
         const products = await Product.find(FilterData).populate('categories', 'name').skip((pageNumber - 1) * pageSize).limit(pageSize)
 
-        console.log(products)
-
         const totalProducts = await Product.countDocuments(FilterData)
 
         return res.json({
