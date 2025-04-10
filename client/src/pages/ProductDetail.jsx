@@ -5,7 +5,6 @@ import { Carousel } from 'react-responsive-carousel'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 import Ratings from 'react-ratings-declarative';
 import { useInView } from 'react-intersection-observer'
-import MoonLoader from "react-spinners/MoonLoader"
 
 import api from '../api/axios'
 import useAuth from '../zustand/useAuth'
@@ -14,6 +13,7 @@ import useWriteReview from '../hooks/useWriteReview'
 import useUpdateReview from '../hooks/useUpdateReview'
 import useDeleteReview from '../hooks/useDeleteReview'
 import Review from '../components/Review'
+import Spinner from '../components/Spinner'
 
 const ProductDetail = () => {
 
@@ -22,7 +22,7 @@ const ProductDetail = () => {
     const [stars, setStars] = useState(0)
     const [updateMode, setUpdateMode] = useState(false)
 
-    const { ref , inView } = useInView()
+    const { ref, inView } = useInView()
 
     const { productId } = useParams()
     const { data } = useQuery({
@@ -95,8 +95,8 @@ const ProductDetail = () => {
     }, [review])
 
     useEffect(() => {
-        if(inView) fetchNextPage()
-    },[fetchNextPage, inView])
+        if (inView) fetchNextPage()
+    }, [fetchNextPage, inView])
 
     return (
         <div className='flex flex-col px-1 py-2 md:px-10'>
@@ -118,9 +118,9 @@ const ProductDetail = () => {
                     {token && <button disabled={loading} onClick={() => addToCart(productId)} className='btn self-start'>Add to Cart</button>}
                 </div>
             </section>
-            { token && <hr className='h-px my-3 border-0 bg-gray-200' />}
+            {token && <hr className='h-px my-3 border-0 bg-gray-200' />}
             {/* View your Review and Write section */}
-            { token && <section className='flex flex-col w-full'>
+            {token && <section className='flex flex-col w-full'>
                 <div className='mb-1'>
                     <label htmlFor="title">Title: </label>
                     <input value={title} name="title" id="title" placeholder='Awesome Product' onChange={(e) => setTitle(e.target.value)}></input>
@@ -145,14 +145,17 @@ const ProductDetail = () => {
                     <textarea value={description} className='w-full' name="description" id="description" onChange={(e) => setDescription(e.target.value)}></textarea>
                 </div>
                 <button onClick={() => updateMode ? onUpdateReview(productId, title, description, stars) : onWriteReview(productId, title, description, stars)} disabled={!title || !description || !stars || creatingReviewLoading || updatingReviewLoading || deletingReviewLoading} className='btn mb-1'>{updateMode ? 'Update' : 'Write'}</button>
-                {updateMode  && <button onClick={() => onDeleteReview(productId)} disabled={deletingReviewLoading} className='btn !bg-red-500 hover:!bg-red-600'>Delete</button>}
+                {updateMode && <button onClick={() => onDeleteReview(productId)} disabled={deletingReviewLoading} className='btn !bg-red-500 hover:!bg-red-600'>Delete</button>}
             </section>}
             <hr className='h-px my-3 border-0 bg-gray-200' />
-            <div className='flex flex-col w-full'>{ status === 'pending' ? <MoonLoader /> : status === 'error' ? <div>{error.response.data.message || 'Internal Server Error'}</div> : reviews.pages.map((page, index) => {
-                return <React.Fragment key={index}>
-                    { page.data.map((review) => <Review key={review._id} review={review} />) }
-                </React.Fragment>
-            }) }</div>
+            {status === 'pending' ? <Spinner /> : status === 'error' ? <div className='text-2xl text-red-600 font-bold capitalize self-center'>{error.response.data.message || 'Internal Server Error'}</div> :
+                <div className='flex flex-col w-full'>
+                    {reviews.pages.map((page, index) => {
+                        return <React.Fragment key={index}>
+                            {page.data.map((review) => <Review key={review._id} review={review} />)}
+                        </React.Fragment>
+                    })}</div>
+            }
             <div ref={ref}></div>
         </div>
     )

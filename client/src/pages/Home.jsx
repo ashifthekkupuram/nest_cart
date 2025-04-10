@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { CiFilter } from 'react-icons/ci'
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import { useInView } from 'react-intersection-observer'
-import MoonLoader from "react-spinners/MoonLoader"
 
 import Product from '../components/Product'
+import Spinner from '../components/Spinner'
 
 import api from '../api/axios'
-
-const override = {
-  display: "block",
-  margin: "0 auto",
-};
 
 const Home = () => {
 
@@ -30,8 +25,8 @@ const Home = () => {
   })
 
   useEffect(() => {
-    if(inView) fetchNextPage()
-  },[fetchNextPage, inView])
+    if (inView) fetchNextPage()
+  }, [fetchNextPage, inView])
 
   return (
     <div className='flex flex-col px-1 py-2 md:px-10'>
@@ -41,15 +36,16 @@ const Home = () => {
         <CiFilter className='text-4xl transition-all text-[#FFB200] hover:text-[#EB5B00]' />
       </div>
       { /* Products Section */}
-      <div className='grid justify-between grid-cols-1 gap-4 md:grid-cols-4'>
-        { status === 'pending' ? <MoonLoader color='#FFB200' override={override} /> : status === 'error' ? <div>{ error.response.data.message || 'Internal Server Error' }</div> : data.pages.map((page, index) => {
-          return <React.Fragment key={index}>
-            { page.data.map((product) => <Product key={product._id} product={product} />) }
-          </React.Fragment>
-        }) }
-      </div>
+      {status === 'pending' ? <Spinner size={64} /> : status === 'error' ? <div className='text-3xl text-red-600 font-bold capitalize self-center'>{error.response.data.message || 'Internal Server Error'}</div> :
+        <div className='grid justify-between grid-cols-1 gap-4 md:grid-cols-4'>
+          {data.pages.map((page, index) => {
+            return <React.Fragment key={index}>
+              {page.data.map((product) => <Product key={product._id} product={product} />)}
+            </React.Fragment>
+          })}</div>
+      }
       <div ref={ref}></div>
-      { isFetchingNextPage && <MoonLoader color='#FFB200' override={override} /> }
+      {isFetchingNextPage && <Spinner />}
     </div>
   )
 }

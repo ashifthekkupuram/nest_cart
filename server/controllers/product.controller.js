@@ -15,10 +15,12 @@ export const get_products = async (req, res, next) => {
 
         if(search){
             FilterData.name = { $regex: search, $options: 'i' }
-            FilterData.discription = { $regex: search, $options: 'i' }
+            FilterData.description = { $regex: search, $options: 'i' }
         }
 
         const products = await Product.find(FilterData).populate('categories', 'name').skip((pageNumber - 1) * pageSize).limit(pageSize)
+
+        console.log(products)
 
         const totalProducts = await Product.countDocuments(FilterData)
 
