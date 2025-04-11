@@ -7,10 +7,10 @@ const Menu = () => {
   return (
     <div className='menu'>
       {menu.map((menu) =>
-        <div className="item">
+        <div className="item" key={menu.id}>
           <span className='title'>{menu.title}</span>
           {menu.items.map((item) => 
-          <Link to={item.to} className='listItem'>
+          <Link to={item.to} className='listItem' key={item.id}>
             <img src={item.img} alt="" />
             <span className='listItemTitle' >{item.itemTitle}</span>
           </Link>)}

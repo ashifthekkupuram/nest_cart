@@ -37,6 +37,16 @@
         border-radius: 5px;
         padding: 20px;
 
+        .error {
+            background-color: $error-bg;
+            border-radius: 5px;
+            padding: 8px;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: $soft-color;
+            font-weight: 300;
+        }
+
         .field {
             display: flex;
             flex-direction: column;

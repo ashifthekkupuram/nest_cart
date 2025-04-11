@@ -1,9 +1,12 @@
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
 import './styles/global.scss'
 
-import NavBar from './components/navbar/NavBar'
-import Menu from './components/menu/Menu'
-
+import AuthWrapper from './components/authwrapper/AuthWrapper'
+import AuthRequired from './components/authrequired/AuthRequired'
+import AuthRedirect from './components/authredirect/AuthRedirect'
+import Layout from './components/layout/Layout'
 import Home from './pages/home/Home'
 import Categories from './pages/categories/Categories'
 import Products from './pages/products/Products'
@@ -11,49 +14,51 @@ import Login from './pages/login/Login'
 
 const App = () => {
 
-  const Layout = () => {
-    return (
-      <div className="main">
-        <NavBar />
-        <div className="container">
-          <div className="menuContainer">
-            <Menu />
-          </div>
-          <div className="contentContainer">
-            <Outlet />
-          </div>
-        </div>
-      </div>
-    )
-  }
+  const queryClient = new QueryClient()
 
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Layout />,
+      element: <AuthWrapper />,
       children: [
         {
           path: '/',
-          element: <Home />
+          element: <AuthRequired />,
+          children: [{
+            path: '/',
+            element: <Layout />,
+            children: [
+              {
+                path: '/',
+                element: <Home />
+              },
+              {
+                path: '/categories',
+                element: <Categories />
+              },
+              {
+                path: '/products',
+                element: <Products />
+              },
+            ]
+          }]
         },
         {
-          path: '/categories',
-          element: <Categories />
-        },
-        {
-          path: '/products',
-          element: <Products />
-        },
+          path: '/',
+          element: <AuthRedirect />,
+          children: [{
+            path: '/login',
+            element: <Login />
+          }]
+        }
       ]
-    },
-    {
-      path: '/login',
-      element: <Login />
     }
-  ]) 
+  ])
 
   return (
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   )
 }
 
