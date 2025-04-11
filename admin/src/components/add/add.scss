@@ -1,0 +1,92 @@
+@import "../../styles/variables.scss";
+
+.add {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.724);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: hidden;
+
+    .modal {
+        padding: 50px;
+        border-radius: 10px;
+        background-color: $main-bg;
+        position: relative;
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: $soft-color;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 500px;
+            justify-content: space-between;
+
+            .error {
+                background-color: $error-bg;
+                border-radius: 5px;
+                padding: 8px;
+                margin-bottom: 5px;
+                font-size: 12px;
+                color: $soft-color;
+                font-weight: 300;
+            }
+
+            .field {
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
+                margin-bottom: 5px;
+                width: 100%;
+
+                label {
+                    font-size: 12px;
+                    font-weight: 200;
+                }
+
+                input {
+                    background-color: $soft-bg;
+                    color: $main-color;
+                    padding: 5px 5px;
+                    border: none;
+                    border-radius: 5px;
+                    outline: none;
+                    transition: ease-in 0.2s;
+
+                    &:focus {
+                        border: 2px solid $dark-bg
+                    }
+                }
+            }
+
+            button {
+                padding: 5px;
+                background-color: $soft-bg;
+                color: $main-color;
+                border: none;
+                border-radius: 5px;
+                transition: ease-in 0.2s;
+                width: 100%;
+
+                &:hover {
+                    background-color: $dark-bg;
+                }
+            }
+        }
+    }
+}

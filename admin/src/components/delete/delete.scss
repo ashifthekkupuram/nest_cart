@@ -1,0 +1,65 @@
+@import "../../styles/variables.scss";
+
+.delete {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.724);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: hidden;
+
+    .modal {
+        padding: 50px;
+        border-radius: 10px;
+        background-color: $main-bg;
+        position: relative;
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: $soft-color;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 500px;
+            justify-content: space-between;
+
+            .error {
+                background-color: $error-bg;
+                border-radius: 5px;
+                padding: 8px;
+                margin-bottom: 5px;
+                font-size: 12px;
+                color: $soft-color;
+                font-weight: 300;
+            }
+
+            button {
+                padding: 5px;
+                background-color: $error-bg;
+                color: $main-color;
+                border: none;
+                border-radius: 5px;
+                transition: ease-in 0.2s;
+                width: 100%;
+
+                &:hover {
+                    background-color: red;
+                }
+            }
+        }
+    }
+}

@@ -35,6 +35,6 @@ const AddressSchema = new Schema({
         minLength: 10,
         maxLength: 10
     }
-})
+}, { timestamps: true })
 
 export default mongoose.model('Address', AddressSchema)

@@ -79,6 +79,6 @@ const OrderSchema = new Schema({
         enum: ['PENDING', 'CANCELLED', 'DELIVERED'],
         default: 'PENDING'
     }
-})
+}, { timestamps: true })
 
 export default mongoose.model('Order', OrderSchema)
