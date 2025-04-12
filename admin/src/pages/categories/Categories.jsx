@@ -15,7 +15,6 @@ const Categories = () => {
       field: 'name',
       headerName: 'Name',
       width: 150,
-      editable: true,
     },
     {
       field: 'action',

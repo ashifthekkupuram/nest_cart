@@ -11,7 +11,7 @@ import api from '../api/axios'
 const Home = () => {
 
   const [search, setSearch] = useState('')
-  const { ref, inView } = useInView
+  const { ref, inView } = useInView()
 
   const { data, status, fetchNextPage, isFetchingNextPage, error } = useInfiniteQuery({
     queryKey: ['products', search],

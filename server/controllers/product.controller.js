@@ -6,20 +6,30 @@ import cloudinary from '../config/cloudinary.js'
 export const get_products = async (req, res, next) => {
     try {
 
-        const { search , page = 1, limit = 12 } = req.query
+        const { search, page = 1, limit = 12, adminPage = false } = req.query
 
         const FilterData = {}
 
         const pageNumber = parseInt(page, 10)
         const pageSize = parseInt(limit, 10)
 
-        if(search){
+        if (search) {
             FilterData.name = { $regex: search, $options: 'i' }
             FilterData.description = { $regex: search, $options: 'i' }
         }
 
-        const products = await Product.find(FilterData).populate('categories', 'name').skip((pageNumber - 1) * pageSize).limit(pageSize)
+        let products = []
 
+        if (adminPage) {
+
+            products = await Product.find(FilterData).populate('categories', 'name')
+
+        } else {
+
+            products = await Product.find(FilterData).populate('categories', 'name').skip((pageNumber - 1) * pageSize).limit(pageSize)
+
+        }
+        
         const totalProducts = await Product.countDocuments(FilterData)
 
         return res.json({
@@ -27,7 +37,8 @@ export const get_products = async (req, res, next) => {
             message: 'Products retrieved',
             data: {
                 data: products,
-                hasNextPage: pageNumber * pageSize < totalProducts
+                hasNextPage: pageNumber * pageSize < totalProducts,
+                totalProducts
             }
         })
 
@@ -135,7 +146,7 @@ export const create_product = async (req, res, next) => {
 }
 
 export const update_product = async (req, res, next) => {
-    try{
+    try {
         const { name, description, price, categories } = req.body
         const { productId } = req.params
 
@@ -183,14 +194,14 @@ export const update_product = async (req, res, next) => {
             })
         }
 
-        const updatedProduct = await Product.findByIdAndUpdate(productId, { name, description, price: Number(price), categories: categories.toString().split(',')})
+        const updatedProduct = await Product.findByIdAndUpdate(productId, { name, description, price: Number(price), categories: categories.toString().split(',') })
 
         return res.json({
             success: true,
             message: 'Product updated',
             data: updatedProduct,
         })
-    } catch(error) {
+    } catch (error) {
         next(error)
     }
 }
