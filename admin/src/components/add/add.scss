@@ -59,7 +59,9 @@
                     font-weight: 200;
                 }
 
-                input {
+                input,
+                textarea,
+                select {
                     background-color: $soft-bg;
                     color: $main-color;
                     padding: 5px 5px;
@@ -72,6 +74,46 @@
                         border: 2px solid $dark-bg
                     }
                 }
+            }
+
+            .selectedCategories {
+                display: flex;
+                gap: 3px;
+                margin-bottom: 5px;
+                width: 100%;
+
+                .selectedCategoriesItem {
+                    padding: 5px;
+                    background-color: $soft-bg;
+                    border-radius: 5px;
+                    font-size: 14px;
+
+                    &:hover {
+                        background-color: $error-bg;
+                        cursor: pointer;
+                    }
+                }
+
+            }
+
+            .images {
+                display: flex;
+                gap: 3px;
+                margin-bottom: 5px;
+                width: 100%;
+
+                .image {
+                    padding: 5px;
+                    background-color: $soft-bg;
+                    border-radius: 5px;
+                    font-size: 8px;
+
+                    &:hover {
+                        background-color: $error-bg;
+                        cursor: pointer;
+                    }
+                }
+
             }
 
             button {
