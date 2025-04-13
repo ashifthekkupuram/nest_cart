@@ -1,6 +1,6 @@
 @import "../../styles/variables.scss";
 
-.update {
+.order {
     width: 100vw;
     height: 100vh;
     position: absolute;
@@ -72,6 +72,7 @@
                         border: 2px solid $dark-bg
                     }
                 }
+
             }
 
             .selectedCategories {

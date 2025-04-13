@@ -5,6 +5,7 @@ import { DataGrid } from '@mui/x-data-grid'
 
 import Address from '../../components/address/Address'
 import OrderItems from '../../components/orderitems/OrderItems'
+import UpdateOrder from '../../components/update/UpdateOrder'
 
 import api from '../../api/api'
 
@@ -12,6 +13,7 @@ const Orders = () => {
 
   const [openAddress, setOpenAddress] = useState({ open: false, data: null })
   const [openItems, setOpenItems] = useState({ open: false, data: null })
+  const [openEdit, setOpenEdit] = useState({ open: false, data: null })
 
   const { data } = useQuery({
     queryKey: ['orders'],
@@ -43,7 +45,7 @@ const Orders = () => {
     {
       field: 'paymentMethod',
       headerName: 'Payment Method',
-      width: 150
+      width: 130
     },
     {
       field: 'address',
@@ -84,9 +86,26 @@ const Orders = () => {
       }
     },
     {
+      field: 'status',
+      headerName: 'Status',
+      width: 100
+    },
+    {
       field: 'totalAmount',
       headerName: 'Amount',
       width: 100
+    },
+    {
+      field: 'update',
+      headerName: 'Update',
+      renderCell: (params) => {
+
+        const onEdit = () => {
+          setOpenEdit({ open: true, data: { id: params.row._id, paid: params.row.paid, status: params.row.status } })
+        }
+
+        return <img className='admin-icons' src='edit.svg' onClick={onEdit} />
+      }
     },
   ]
 
@@ -103,6 +122,7 @@ const Orders = () => {
       />
       {openAddress.open && <Address setOpen={setOpenAddress} data={openAddress.data} />}
       {openItems.open && <OrderItems setOpen={setOpenItems} data={openItems.data} />}
+      {openEdit.open && <UpdateOrder setOpen={setOpenEdit} data={openEdit.data} />}
     </div>
   )
 }

@@ -77,6 +77,48 @@ export const getOrder = async (req, res, next) => {
     } 
 }
 
+export const updateOrder = async (req, res, next) => {
+    try{
+
+        const { paid = false , status = 'PENDING' } = req.body
+        const { orderId } = req.params
+
+        if(!orderId){
+            return res.status(400).json({
+                success: false,
+                message: 'Order ID is required'
+            })
+        }
+
+        if(!status){
+            return res.status(400).json({
+                success: false,
+                message: 'Status is required'
+            })
+        }
+
+        const order = await Order.findById(orderId)
+
+        if(!order){
+            return res.status(404).json({
+                success: false,
+                message: 'Order is not found'
+            })
+        }
+
+        const updatedOrder = await Order.findByIdAndUpdate(orderId, { paid, status }, { new: true }).populate('customer', 'name email phone').populate('order_items.product')
+
+        return res.json({
+            success: true,
+            message: 'UPDATE order',
+            data: updatedOrder
+        })
+
+    } catch(error) {
+        next(error)
+    }
+}
+
 export const checkout = async (req, res, next) => {
     try {
 
