@@ -2,10 +2,11 @@ import Order from '../models/order.model.js'
 import Address from '../models/address.model.js'
 import Cart from '../models/cart.model.js'
 
-export const getOrders = async (req, res, next) => {
+
+export const getAllOrders = async (req, res, next) => {
     try{
 
-        const orders = await Order.find({ customer: req.user })
+        const orders = await Order.find().populate('customer', 'name email phone').populate('order_items.product')
 
         return res.json({
             success: true,
@@ -15,6 +16,25 @@ export const getOrders = async (req, res, next) => {
 
     } catch(error) {
 
+        console.log(error)
+
+        next(error)
+    }
+}
+
+export const getOrders = async (req, res, next) => {
+    try{
+
+        const orders = await Order.find({ customer: req.user }).populate('customer', 'name email phone').populate('order_items.product')
+
+        return res.json({
+            success: true,
+            mesage: 'GET Orders',
+            data: orders
+        })
+
+    } catch(error) {
+        next(error)
     }
 }
 
@@ -30,7 +50,7 @@ export const getOrder = async (req, res, next) => {
             })
         }
 
-        const order = await Order(findById)
+        const order = await Order(findById).populate('customer', 'name email phone').populate('order_items.product')
 
         if(!order){
             return res.status(404).json({

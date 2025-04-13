@@ -21,54 +21,66 @@ export const menu = [
                 itemTitle: 'Categories',
                 to: '/categories',
             },
-        ]
-    },
-    {
-        id: 2,
-        title: 'SECONDARY',
-        items: [
             {
-                id: 1,
-                img: 'home.svg',
-                itemTitle: 'Home',
-                to: '/'
+                id: 4,
+                img: 'user.svg',
+                itemTitle: 'Users',
+                to: '/users',
             },
             {
-                id: 2,
-                img: 'products.svg',
-                itemTitle: 'Products',
-                to: '/products'
-            },
-            {
-                id: 3,
-                img: 'categories.svg',
-                itemTitle: 'Categories',
-                to: '/categories',
+                id: 5,
+                img: 'cart.svg',
+                itemTitle: 'Orders',
+                to: '/orders',
             },
         ]
     },
-    {
-        id: 3,
-        title: 'Third',
-        items: [
-            {
-                id: 1,
-                img: 'home.svg',
-                itemTitle: 'Home',
-                to: '/'
-            },
-            {
-                id: 2,
-                img: 'products.svg',
-                itemTitle: 'Products',
-                to: '/products'
-            },
-            {
-                id: 3,
-                img: 'categories.svg',
-                itemTitle: 'Categories',
-                to: '/categories',
-            },
-        ]
-    }
+    // {
+    //     id: 2,
+    //     title: 'SECONDARY',
+    //     items: [
+    //         {
+    //             id: 1,
+    //             img: 'home.svg',
+    //             itemTitle: 'Home',
+    //             to: '/'
+    //         },
+    //         {
+    //             id: 2,
+    //             img: 'products.svg',
+    //             itemTitle: 'Products',
+    //             to: '/products'
+    //         },
+    //         {
+    //             id: 3,
+    //             img: 'categories.svg',
+    //             itemTitle: 'Categories',
+    //             to: '/categories',
+    //         },
+    //     ]
+    // },
+    // {
+    //     id: 3,
+    //     title: 'Third',
+    //     items: [
+    //         {
+    //             id: 1,
+    //             img: 'home.svg',
+    //             itemTitle: 'Home',
+    //             to: '/'
+    //         },
+    //         {
+    //             id: 2,
+    //             img: 'products.svg',
+    //             itemTitle: 'Products',
+    //             to: '/products'
+    //         },
+    //         {
+    //             id: 3,
+    //             img: 'categories.svg',
+    //             itemTitle: 'Categories',
+    //             to: '/categories',
+    //         },
+    //     ]
+    // }
 ]

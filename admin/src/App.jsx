@@ -10,6 +10,8 @@ import Layout from './components/layout/Layout'
 import Home from './pages/home/Home'
 import Categories from './pages/categories/Categories'
 import Products from './pages/products/Products'
+import Users from './pages/users/Users'
+import Orders from './pages/orders/Orders'
 import Login from './pages/login/Login'
 
 const App = () => {
@@ -39,6 +41,14 @@ const App = () => {
               {
                 path: '/products',
                 element: <Products />
+              },
+              {
+                path: '/users',
+                element: <Users />
+              },
+              {
+                path: '/orders',
+                element: <Orders />
               },
             ]
           }]

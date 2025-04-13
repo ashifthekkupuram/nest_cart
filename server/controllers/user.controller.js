@@ -4,6 +4,22 @@ import User from '../models/user.model.js'
 
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm
 
+export const getUsers = async (req, res, next) => {
+    try{
+
+        const users = await User.find().select('-password').populate('addresses')
+
+        return res.json({
+            success: true,
+            message: 'GET users',
+            data: users
+        })
+
+    } catch(error) {
+        next(error)
+    }
+}
+
 export const changeName = async (req, res, next) => {
     try {
 
