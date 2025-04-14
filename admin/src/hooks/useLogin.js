@@ -25,7 +25,7 @@ const useLogin = () => {
                 setError('User is not an admin')
             }
         } catch(error) {
-            setError(error.response.data.message || 'Internal Server Error')
+            setError(error?.response?.data?.message || 'Internal Server Error')
         } finally {
             setLoading(false)
         }

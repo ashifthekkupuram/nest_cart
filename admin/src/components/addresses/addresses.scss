@@ -33,9 +33,9 @@
 
         .viewAddresses {
             display: flex;
-            flex-direction: column;
             flex-wrap: wrap;
             max-width: 500px;
+            justify-content: space-between;
             gap: 5px;
 
             .address {

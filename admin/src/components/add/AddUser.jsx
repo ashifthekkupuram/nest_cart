@@ -22,9 +22,9 @@ const AddUser = ({ setOpen }) => {
             return api.post('/auth/register', { firstName, secondName, email, phone, password, isAdmin: admin } )
         },
         onSuccess: () => {
-            queryClient.invalidateQueries([`products`])
+            queryClient.invalidateQueries([`users`])
             setOpen(false)
-            toast.success('Product added')
+            toast.success('User added')
         }
     })
 
@@ -34,7 +34,7 @@ const AddUser = ({ setOpen }) => {
         mutation.mutate()
     }
 
-    const disabled = !firstName || !secondName || !email || !phone || password || mutation.isPending
+    const disabled = !firstName || !secondName || !email || !phone || !password || mutation.isPending
 
     return (
         <div className="add">
@@ -47,27 +47,27 @@ const AddUser = ({ setOpen }) => {
                     {mutation.isError && <div className="error">{mutation.error?.response?.data?.message || 'Internal Server Error'}</div>}
                     <div className='field'>
                         <label htmlFor="firstName">First Name:</label>
-                        <input value={firstName} type='text' name='firstName' id='firstName' onChange={(e) => setFirstName(e.target.value)} />
+                        <input value={firstName} type='text' name='firstName' id='firstName' onChange={(e) => setFirstName(e.target.value)} placeholder='John' />
                     </div>
                     <div className='field'>
                         <label htmlFor="secondName">Second Name:</label>
-                        <input value={secondName} type='text' name='secondName' id='secondName' onChange={(e) => setSecondName(e.target.value)} />
+                        <input value={secondName} type='text' name='secondName' id='secondName' onChange={(e) => setSecondName(e.target.value)} placeholder='Wick' />
                     </div>
                     <div className='field'>
                         <label htmlFor="email">Email:</label>
-                        <input value={email} type='email' name='email' id='email' onChange={(e) => setEmail(e.target.value)} />
+                        <input value={email} type='email' name='email' id='email' onChange={(e) => setEmail(e.target.value)} placeholder='abc@xyz.com' />
                     </div>
                     <div className='field'>
                         <label htmlFor="phone">Phone:</label>
-                        <input value={phone} type='number' name='phone' id='phone' onChange={(e) => setPhone(e.target.value)} />
+                        <input value={phone} type='number' name='phone' id='phone' onChange={(e) => setPhone(e.target.value)} placeholder='1234567890' />
                     </div>
                     <div className='field'>
                         <label htmlFor="password">Password:</label>
-                        <input value={password} type='password' name='password' id='password' onChange={(e) => setPassword(e.target.value)} />
+                        <input value={password} type='password' name='password' id='password' onChange={(e) => setPassword(e.target.value)} placeholder='**************' />
                     </div>
                     <div className='field'>
                         <label htmlFor="admin">Admin:</label>
-                        <input checked={admin} type='admin' name='admin' id='admin' onChange={(e) => setAdmin(e.target.checked)} />
+                        <input checked={admin} type='checkbox' name='admin' id='admin' onChange={(e) => setAdmin(e.target.checked)} />
                     </div>
                     <button disabled={disabled}>{mutation.isPending ? 'Loading...' : 'Add'}</button>
                 </form>
@@ -76,4 +76,4 @@ const AddUser = ({ setOpen }) => {
     )
 }
 
-export default AddProduct
+export default AddUser

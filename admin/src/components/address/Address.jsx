@@ -2,7 +2,7 @@ import './address.scss'
 
 const Address = ({ setOpen, data }) => {
     return (
-        <div className='address'>
+        <div className='Orderaddress'>
             <div className="modal">
                 <span className="close" onClick={() => setOpen({ open: false, data: null })}>
                     X

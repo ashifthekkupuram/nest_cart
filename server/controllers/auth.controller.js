@@ -57,7 +57,8 @@ export const login = async (req, res, next) => {
                         phone: user.phone,
                         name: user.name,
                         addresses: user.addresses,
-                        admin: user.admin
+                        admin: user.admin,
+                        _id: user._id
                     },
                     cart,
                 }
@@ -78,7 +79,7 @@ export const login = async (req, res, next) => {
 export const register = async (req, res, next) => {
     try {
 
-        const { email, phone, firstName, secondName, password } = req.body
+        const { email, phone, firstName, secondName, password, isAdmin = false } = req.body
 
         if (!email || !email.match(EMAIL_REGEX)) {
             return res.status(400).json({
@@ -146,7 +147,8 @@ export const register = async (req, res, next) => {
                         firstName: firstName.toLowerCase(),
                         secondName: secondName.toLowerCase()
                     },
-                    password: hashedPassword
+                    password: hashedPassword,
+                    admin: isAdmin
                 })
 
                 await user.save()
@@ -210,7 +212,8 @@ export const refresh = async (req, res, next) => {
                         phone: user.phone,
                         name: user.name,
                         addresses: user.addresses,
-                        admin: user.admin
+                        admin: user.admin,
+                        _id: user._id
                     },
                     cart
                 }

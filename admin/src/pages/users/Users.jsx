@@ -1,15 +1,23 @@
 import './users.scss'
 import { useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import moment from 'moment'
 
 import api from '../../api/api'
 import Addresses from '../../components/addresses/Addresses'
+import AddUser from '../../components/add/AddUser'
+import useAuth from '../../zustand/useAuth'
+import useChangeAdmin from '../../hooks/useChangeAdmin'
 
 const Users = () => {
 
     const [openAddress, setOpenAddress] = useState({ open: false, data: null })
+    const [openAdd, setOpenAdd] = useState(false)
+    
+    const UserData = useAuth((state) => state.UserData)
+    
+    const { loading: changeAdminLoading ,changeAdmin } = useChangeAdmin()
 
     const { data } = useQuery({
         queryKey: ['users'],
@@ -18,6 +26,7 @@ const Users = () => {
             return response.data.data
         }
     })
+    
 
     const columns = [
         {
@@ -72,13 +81,30 @@ const Users = () => {
                     <img onClick={onAddressView} src="view.svg" alt="" title='view addresses' />
                 </div>
             }
-        }
+        },
+        {
+            field: 'updateAdmin',
+            headerName: 'Change Admin',
+            width: 150,
+            renderCell: (params) => {
+
+                const check = UserData._id !== params.row._id
+
+                const handleClick = (e) => {
+                    e.preventDefault()
+                    changeAdmin(params.row._id)
+                }
+
+                return check && <button disabled={changeAdminLoading} className='changeAdmin' onClick={handleClick} >{ params.row.admin ? 'remove from admin' : 'add to admin' }</button> 
+            }
+        },
     ]
 
     return (
         <div className='users'>
             <div className="title">
                 <h1>Users</h1>
+                <button onClick={() => setOpenAdd(true)} >Add new User</button>
             </div>
             <DataGrid
                 sx={{ backgroundColor: 'white' }}
@@ -87,6 +113,7 @@ const Users = () => {
                 getRowId={(row) => row._id}
             />
             { openAddress.open && <Addresses setOpen={setOpenAddress} data={openAddress.data} /> }
+            { openAdd && <AddUser setOpen={setOpenAdd} /> }
         </div>
     )
 }

@@ -11,7 +11,7 @@ const Addresses = ({ setOpen, data }) => {
                 <div className="viewAddresses">
                     { data.length > 0 ? data.map((address) => {
                         return (
-                            <div className="address">
+                            <div key={address._id} className="address">
                                 { address.fullName }, { address.address1 }, { address.address2 }, { address.district }, { address.state }, { address.postalCode }, { address.contactNumber }
                             </div>
                         )
