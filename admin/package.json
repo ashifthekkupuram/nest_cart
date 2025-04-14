@@ -20,7 +20,10 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.2",
+    "react-intersection-observer": "^9.16.0",
+    "react-ratings-declarative": "^3.4.1",
     "react-router-dom": "^7.5.0",
+    "react-spinners": "^0.15.0",
     "sass": "^1.86.3",
     "zustand": "^5.0.3"
   },

@@ -11,8 +11,6 @@ const Checkout = () => {
 
   const { loading, error, checkout } = useCheckout()
 
-  console.log(selectedAddress)
-
   const cart = useCart((state) => state.cart)
   const UserData = useAuth((state) => state.UserData)
 

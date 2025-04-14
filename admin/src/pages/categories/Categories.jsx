@@ -63,13 +63,6 @@ const Categories = () => {
         sx={{ backgroundColor: 'white' }}
         rows={data || []}
         columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
         pageSizeOptions={[5]}
         disableRowSelectionOnClick
         getRowId={(category) => category._id}

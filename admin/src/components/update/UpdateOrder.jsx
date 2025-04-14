@@ -39,16 +39,13 @@ const UpdateOrder = ({ setOpen, data }) => {
 
     useEffect(() => {
         if (data) {
-            console.log(data)
             setPaid(data.paid)
             setStatus(data.status)
         }
     }, [data])
 
-    console.log(paid)
-
     return (
-        <div className="order">
+        <div className="update">
             <div className="modal">
                 <span className="close" onClick={() => setOpen({ open: false, data: null })}>
                     X

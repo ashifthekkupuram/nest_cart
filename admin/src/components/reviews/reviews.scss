@@ -1,0 +1,100 @@
+@import "../../styles/variables.scss";
+
+.reviews {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.724);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: hidden;
+
+    .modal {
+        padding: 50px;
+        border-radius: 10px;
+        background-color: $main-bg;
+        position: relative;
+        width: 500px;
+        height: 500px;
+        overflow: auto;
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: $soft-color;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .allReviews {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            .review {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background-color: $soft-bg;
+                padding: 10px;
+                border-radius: 10px;
+
+                .reviewTop {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: start;
+                    align-items: center;
+                    gap: 4px;
+
+                    img {
+                        height: 18px;
+                        width: 18px;
+                    }
+
+                    span {
+                        font-size: 16px;
+                        text-transform: capitalize;
+                    }
+
+                }
+
+                .reviewMiddle{
+                    display: flex;
+                    gap: 5px;
+
+                    span {
+                        font-weight: 600;
+                        
+                    }
+                }
+
+            }
+
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .error {
+            background-color: $error-bg;
+                border-radius: 5px;
+                padding: 8px;
+                margin-bottom: 5px;
+                font-size: 12px;
+                color: $soft-color;
+                font-weight: 300;
+        }
+
+    }
+}

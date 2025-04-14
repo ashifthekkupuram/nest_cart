@@ -15,9 +15,6 @@ export const getAllOrders = async (req, res, next) => {
         })
 
     } catch(error) {
-
-        console.log(error)
-
         next(error)
     }
 }
@@ -126,8 +123,6 @@ export const checkout = async (req, res, next) => {
 
         const cart = await Cart.findOne({ customer: req.user })
         const address = await Address.findById(addressId)
-
-        console.log(address)
         
         let totalAmount = 0
         cart.order_items.forEach((item) => {

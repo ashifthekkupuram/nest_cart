@@ -8,6 +8,7 @@ import api from '../../api/api'
 import AddProduct from '../../components/add/AddProduct'
 import DeleteProduct from '../../components/delete/DeleteProduct'
 import UpdateProduct from '../../components/update/UpdateProduct'
+import Reviews from '../../components/reviews/Reviews'
 
 const PAGE_SIZE = 12
 
@@ -16,6 +17,7 @@ const Products = () => {
   const [openAdd, setOpenAdd] = useState(false)
   const [openEdit, setOpenEdit] = useState({ open: false, data: null })
   const [openDelete, setOpenDelete] = useState({ open: false, id: '', name: '' })
+  const [openReviews, setOpenReviews] = useState({ open: false, productId: '' })
 
   const { data } = useQuery({
     queryKey: ['products'],
@@ -78,7 +80,20 @@ const Products = () => {
       headerName: 'created At',
       width: 150,
       valueFormatter: (value) => moment(value).format('MMM Do YYYY')
-    }
+    },
+    {
+      field: 'reviews',
+      headerName: 'Reviews',
+      renderCell: (params) => {
+
+        const onReviews = () => {
+          setOpenReviews({ open: true, productId: params.row._id })
+        }
+        return <div className='actions'>
+          <img onClick={onReviews} src="view.svg" alt="" title='reviews' />
+        </div>
+      }
+    },
   ]
 
   return (
@@ -96,6 +111,7 @@ const Products = () => {
       {openAdd && <AddProduct setOpen={setOpenAdd} />}
       {openDelete.open && <DeleteProduct setOpen={setOpenDelete} data={openDelete} />}
       {openEdit.open && <UpdateProduct setOpen={setOpenEdit} data={openEdit} />}
+      {openReviews.open && <Reviews setOpen={setOpenReviews} data={openReviews.productId} />}
     </div>
   )
 }

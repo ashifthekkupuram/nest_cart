@@ -14,7 +14,6 @@ const useDeleteReview = () => {
             toast.success('Review has been deleted')
             return 1
         } catch (error) {
-            console.log(error)
             toast.error(error?.response?.data?.message || 'Internal Server Error')
         } finally {
             setLoading(false)

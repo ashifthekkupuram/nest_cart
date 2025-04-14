@@ -202,8 +202,6 @@ export const update_product = async (req, res, next) => {
             data: updatedProduct,
         })
     } catch (error) {
-
-        console.log(error)
         next(error)
     }
 }

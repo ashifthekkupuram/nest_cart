@@ -14,7 +14,6 @@ const useUpdateReview = () => {
             toast.success('Review has been updated')
             return response.data.data
         } catch (error) {
-            console.log(error)
             toast.error(error?.response?.data?.message || 'Internal Server Error')
         } finally {
             setLoading(false)

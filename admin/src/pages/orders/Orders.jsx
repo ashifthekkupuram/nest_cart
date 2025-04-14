@@ -29,7 +29,6 @@ const Orders = () => {
       headerName: 'Customer Name',
       width: 150,
       renderCell: (params) => {
-        console.log(params.row)
         return `${params.row.customer.name.firstName} ${params.row.customer.name.secondName}`
       }
     },
@@ -38,7 +37,6 @@ const Orders = () => {
       headerName: 'Customer Email',
       width: 150,
       renderCell: (params) => {
-        console.log(params.row)
         return `${params.row.customer.email.email}`
       }
     },
