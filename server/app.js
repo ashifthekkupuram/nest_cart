@@ -17,6 +17,7 @@ import AdminRouter from './routes/admin.router.js'
 import errorHandler from './middlewares/error.middleware.js'
 
 const PORT = process.env.PORT || 5000
+const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS.split(' ')
 
 const app = express()
 
@@ -24,7 +25,7 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
+app.use(cors({ origin: ALLOWED_ORIGINS, credentials: true }))
 
 // API Routes
 app.use('/api/auth', AuthRouter)
