@@ -88,7 +88,7 @@ export const create_product = async (req, res, next) => {
         if (!description || description.length < 21) {
             return res.status(400).json({
                 success: false,
-                message: 'Product name must be 20 characters or above'
+                message: 'Product description must be 20 characters or above'
             })
         }
 
@@ -167,7 +167,7 @@ export const update_product = async (req, res, next) => {
         if (!description || description.length < 21) {
             return res.status(400).json({
                 success: false,
-                message: 'Product name must be 20 characters or above'
+                message: 'Product description must be 20 characters or above'
             })
         }
 
