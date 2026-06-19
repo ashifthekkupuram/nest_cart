@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@use '../../styles/variables.scss';
 
 .authLoading {
     display: flex;
@@ -6,6 +6,6 @@
     align-items: center;
     height: 100vh;
     width: 100%;
-    background-color: $main-bg;
-    color: $main-color
+    background-color: variables.$main-bg;
+    color: variables.$main-color
 }

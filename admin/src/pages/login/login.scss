@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@use '../../styles/variables.scss';
 
 .login {
     display: flex;
@@ -7,8 +7,8 @@
     width: 100%;
     height: 100vh;
     font-family: 'Inter', sans-serif;
-    background-color: $main-bg;
-    color: $main-color;
+    background-color: variables.$main-bg;
+    color: variables.$main-color;
     transition: ease-in 0.2s;
 
     .title {
@@ -33,17 +33,17 @@
     form {
         display: flex;
         flex-direction: column;
-        background-color: $soft-bg;
+        background-color: variables.$soft-bg;
         border-radius: 5px;
         padding: 20px;
 
         .error {
-            background-color: $error-bg;
+            background-color: variables.$error-bg;
             border-radius: 5px;
             padding: 8px;
             margin-bottom: 5px;
             font-size: 12px;
-            color: $soft-color;
+            color: variables.$soft-color;
             font-weight: 300;
         }
 
@@ -59,8 +59,8 @@
             }
 
             input {
-                background-color: $main-bg;
-                color: $main-color;
+                background-color: variables.$main-bg;
+                color: variables.$main-color;
                 padding: 5px 5px;
                 border: none;
                 border-radius: 5px;
@@ -68,21 +68,21 @@
                 transition: ease-in 0.2s;
 
                 &:focus {
-                    border: 2px solid $dark-bg
+                    border: 2px solid variables.$dark-bg
                 }
             }
         }
 
         button {
             padding: 5px;
-            background-color: $main-bg;
-            color: $main-color;
+            background-color: variables.$main-bg;
+            color: variables.$main-color;
             border: none;
             border-radius: 5px;
             transition: ease-in 0.2s;
 
             &:hover {
-                background-color: $dark-bg;
+                background-color: variables.$dark-bg;
             }
 
             // &:disabled {

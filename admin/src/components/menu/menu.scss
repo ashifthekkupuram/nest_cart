@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@use '../../styles/variables.scss';
 
 .menu {
     
@@ -10,7 +10,7 @@
 
         .title {
             font-size: 12px;
-            color: $soft-color;
+            color: variables.$soft-color;
             font-weight: 200;
         }
 
@@ -33,7 +33,7 @@
             }
 
             &:hover {
-                background-color: $soft-bg;
+                background-color: variables.$soft-bg;
             }
         }
     }

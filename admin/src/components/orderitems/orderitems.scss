@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@use "../../styles/variables.scss";
 
 .orderitems {
     width: 100vw;
@@ -15,13 +15,13 @@
     .modal {
         padding: 50px;
         border-radius: 10px;
-        background-color: $main-bg;
+        background-color: variables.$main-bg;
         position: relative;
 
         h1 {
             margin-bottom: 20px;
             font-size: 24px;
-            color: $soft-color;
+            color: variables.$soft-color;
         }
 
         .close {
@@ -32,16 +32,16 @@
         }
 
         table {
-            border: 1px solid $soft-bg;
+            border: 1px solid variables.$soft-bg;
             tr{
                 
                 th{
-                    background-color: $dark-bg;
+                    background-color: variables.$dark-bg;
                     padding: 5px;
                 }
 
                 td{
-                    background-color: $soft-bg;
+                    background-color: variables.$soft-bg;
                     padding: 5px;
                 }
 

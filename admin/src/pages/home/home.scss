@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@use '../../styles/variables.scss';
 
 .home {
 
@@ -13,14 +13,14 @@
 
         button {
             padding: 5px 10px;
-            background-color: $soft-bg;
-            color: $main-color;
+            background-color: variables.$soft-bg;
+            color: variables.$main-color;
             border: none;
             border-radius: 5px;
             transition: ease-in 0.2s;
 
             &:hover {
-                background-color: $dark-bg;
+                background-color: variables.$dark-bg;
             }
         }
     }
