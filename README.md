@@ -211,7 +211,7 @@ npm run dev
 
 ## ⚠️ Notes
 
-* Do not expose `RAZORPAY_KEY_SECRET` or `CLOUDINARY_API_SECRET` in frontend and backend
+* Do not expose `RAZORPAY_KEY_SECRET` or `CLOUDINARY_SECRET` in frontend and backend
 * Store sensitive data in `.env` files
 * Configure CORS properly
 * Use HTTPS in production
