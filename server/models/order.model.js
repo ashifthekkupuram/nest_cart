@@ -67,12 +67,16 @@ const OrderSchema = new Schema({
     },
     paymentMethod: {
         type: String,
-        enum: ['COD'],
+        enum: ['COD', 'Online'],
         default: 'COD'
     },
     paid: {
         type: Boolean,
         default: false
+    },
+    paymentId: {
+        type: String,
+        required: false
     },
     status: {
         type: String,

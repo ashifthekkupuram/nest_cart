@@ -13,6 +13,7 @@ import OrderRouter from './routes/order.router.js'
 import UserRouter from './routes/user.router.js'
 import ReviewRouter from './routes/review.router.js'
 import AdminRouter from './routes/admin.router.js'
+import RazorpayRouter from "./routes/razorpay.router.js"
 
 import errorHandler from './middlewares/error.middleware.js'
 
@@ -37,6 +38,7 @@ app.use('/api/order', OrderRouter)
 app.use('/api/user', UserRouter)
 app.use('/api/review', ReviewRouter)
 app.use('/api/admin', AdminRouter)
+app.use('/api/razorpay', RazorpayRouter)
 
 // Error Handler
 app.use(errorHandler)

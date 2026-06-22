@@ -14,11 +14,11 @@ const useCheckout = () => {
 
     const navigate = useNavigate()
 
-    const checkout = async (selectedAddress) => {
+    const checkout = async (selectedAddress, paymentMethod, paymentId) => {
         setError(null)
         setLoading(true)
         try{
-            const response = await api.post(`/order/${selectedAddress}`)
+            const response = await api.post(`/order/${selectedAddress}`, { paymentMethod, paymentId })
             setCart()
             setError(null)
             navigate('/')

@@ -36,7 +36,7 @@ const Cart = () => {
           </tr>
         </thead>
         <tbody>
-          { cart.length > 0 ? cart.map((item) => <tr>
+          { cart.length > 0 ? cart.map((item) => <tr key={item._id} >
             <td className='p-4 border-b border-[#EB5B00]'> <p>{ item.product.name }</p> </td>
             <td className='p-4 border-b border-[#EB5B00]'> <img className='w-8 md:w-12' src={`${item.product.images[0]}`} /> </td>
             <td className='p-4 border-b border-[#EB5B00]'> <p>₹{ item.price }</p> </td>

@@ -120,6 +120,7 @@ export const checkout = async (req, res, next) => {
     try {
 
         const { addressId } = req.params
+        const { paymentId, paymentMethod } = req.body
 
         const cart = await Cart.findOne({ customer: req.user })
         const address = await Address.findById(addressId)
@@ -142,6 +143,8 @@ export const checkout = async (req, res, next) => {
                 contactNumber: address.contactNumber
             },
             totalAmount,
+            ...(paymentId && { paymentId }), 
+            ...(paymentMethod && { paymentMethod }) 
         })
 
         await Cart.findOneAndUpdate({ customer: req.user }, { order_items: [] })
